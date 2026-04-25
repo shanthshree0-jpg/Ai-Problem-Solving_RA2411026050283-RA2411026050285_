@@ -2,7 +2,7 @@
 
 > **Repository:** `AI_ProblemSolving_Ra2411026050283`
 > **Course:** Artificial Intelligence — Problem Solving Assignment
-> **Live Demo:** [http://localhost:5000](http://localhost:5000)
+> **Live Demo:** [https://ai-problem-solving-ra2411026050283-4exa.onrender.com](https://ai-problem-solving-ra2411026050283-4exa.onrender.com)
 
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.x-000000?logo=flask)](https://flask.palletsprojects.com)
