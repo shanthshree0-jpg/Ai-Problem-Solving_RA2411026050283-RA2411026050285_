@@ -1,0 +1,402 @@
+/* ═══════════════════════════════════════════════════
+   Sudoku CSP Solver — Stylesheet
+   ═══════════════════════════════════════════════════ */
+
+.accent-green {
+    background: linear-gradient(135deg, #34d399, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.home-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    border: 1px solid var(--border-subtle);
+}
+
+.home-link:hover {
+    color: var(--text-primary);
+    border-color: var(--border-accent);
+    background: rgba(129, 140, 248, 0.08);
+}
+
+.sudoku-logo {
+    border-color: rgba(52, 211, 153, 0.3) !important;
+}
+
+/* ── Sudoku Card ── */
+.sudoku-card {
+    max-width: 520px !important;
+}
+
+/* ── Sudoku Grid ── */
+.sudoku-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 0;
+    width: 396px;
+    height: 396px;
+    border: 2px solid rgba(52, 211, 153, 0.4);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+}
+
+.sudoku-cell {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    user-select: none;
+}
+
+/* Thicker borders for 3x3 box separation */
+.sudoku-cell.border-right {
+    border-right: 2px solid rgba(52, 211, 153, 0.35);
+}
+
+.sudoku-cell.border-bottom {
+    border-bottom: 2px solid rgba(52, 211, 153, 0.35);
+}
+
+/* Pre-filled (given) cells */
+.sudoku-cell.given {
+    color: var(--text-secondary);
+    background: rgba(148, 163, 184, 0.05);
+    cursor: default;
+    font-weight: 600;
+}
+
+/* User-entered cells */
+.sudoku-cell.user-entered {
+    color: var(--accent-emerald);
+}
+
+/* Selected cell */
+.sudoku-cell.selected {
+    background: rgba(52, 211, 153, 0.12);
+    border-color: rgba(52, 211, 153, 0.5);
+    box-shadow: inset 0 0 12px rgba(52, 211, 153, 0.1);
+}
+
+/* Highlighted row/col/box */
+.sudoku-cell.highlighted {
+    background: rgba(52, 211, 153, 0.04);
+}
+
+/* Same number highlight */
+.sudoku-cell.same-number {
+    background: rgba(129, 140, 248, 0.08);
+}
+
+/* Error cell */
+.sudoku-cell.error {
+    color: var(--accent-rose) !important;
+    background: rgba(251, 113, 133, 0.08);
+    animation: shake 0.4s ease;
+}
+
+/* Solved by AI animation */
+.sudoku-cell.solved-by-ai {
+    color: var(--accent-cyan);
+    animation: cell-fill 0.3s ease forwards;
+}
+
+@keyframes cell-fill {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
+/* Hover on empty cells */
+.sudoku-cell:not(.given):not(.selected):hover {
+    background: rgba(52, 211, 153, 0.06);
+}
+
+/* ── Number Pad ── */
+.number-pad {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.num-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.num-btn:hover {
+    background: rgba(52, 211, 153, 0.1);
+    border-color: rgba(52, 211, 153, 0.4);
+    color: var(--accent-emerald);
+    transform: translateY(-2px);
+}
+
+.num-btn:active {
+    transform: translateY(0);
+}
+
+.num-btn.active {
+    background: rgba(52, 211, 153, 0.15);
+    border-color: rgba(52, 211, 153, 0.5);
+    color: var(--accent-emerald);
+    box-shadow: 0 0 12px rgba(52, 211, 153, 0.2);
+}
+
+.erase-btn {
+    color: var(--accent-rose);
+}
+
+.erase-btn:hover {
+    background: rgba(251, 113, 133, 0.1);
+    border-color: rgba(251, 113, 133, 0.4);
+    color: var(--accent-rose);
+}
+
+/* ── Controls ── */
+.sudoku-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-solve {
+    background: linear-gradient(135deg, #34d399, #22d3ee);
+    color: #0a0a0f;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 16px rgba(52, 211, 153, 0.3);
+}
+
+.btn-solve:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(52, 211, 153, 0.4);
+}
+
+/* ── Constraint List ── */
+.constraint-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.constraint-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px;
+    background: var(--bg-elevated);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+}
+
+.constraint-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.row-icon {
+    background: rgba(251, 191, 36, 0.12);
+    color: var(--accent-amber);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.col-icon {
+    background: rgba(129, 140, 248, 0.12);
+    color: var(--accent-indigo);
+    border: 1px solid rgba(129, 140, 248, 0.2);
+}
+
+.box-icon {
+    background: rgba(52, 211, 153, 0.12);
+    color: var(--accent-emerald);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+.constraint-item strong {
+    font-size: 0.82rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.constraint-item p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* ── Solver Stats ── */
+.solver-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.solver-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--bg-elevated);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+}
+
+.solver-stat-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.solver-stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent-emerald);
+}
+
+.solver-stat-value.time-val {
+    color: var(--accent-cyan);
+}
+
+/* ── Progress ── */
+.progress-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+
+.progress-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--accent-emerald);
+}
+
+.progress-count.remaining {
+    color: var(--accent-amber);
+}
+
+.progress-bar.large {
+    height: 10px;
+    border-radius: 5px;
+}
+
+/* ── How-to List ── */
+.howto-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.howto-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: var(--bg-elevated);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(52, 211, 153, 0.1);
+    color: var(--accent-emerald);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.72rem;
+    flex-shrink: 0;
+    border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+/* ── Responsive ── */
+@media (max-width: 500px) {
+    .sudoku-grid {
+        width: 324px;
+        height: 324px;
+    }
+
+    .sudoku-cell {
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+    }
+
+    .sudoku-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .num-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 0.9rem;
+    }
+}
